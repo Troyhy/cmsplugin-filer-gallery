@@ -1,8 +1,8 @@
-{% extends "admin/cms/page/plugin_change_form.html" %}
-{% load i18n admin_modify adminmedia cms_admin %}
+{% extends "admin/cms/page/plugin/change_form.html" %}
+{% load i18n admin_modify cms_admin %}
 
  
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% admin_static_url %}css/forms.css" />{% endblock %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/forms.css" />{% endblock %}
  
 {% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
  
@@ -13,7 +13,7 @@
 {% block content_title %}<h2>{{ plugin.get_plugin_name }}</h2>
 <ul class="object-tools">
 	
-    {% if original.gallery.id %}<li><a href="{% url admin:filer_gallery_gallery_change original.gallery.id  %}?_popup=1">{% trans "Edit gallery" %}</a></li>{% endif %}
+    {% if original.gallery.id %}<li><a href="{% url "admin:filer_gallery_gallery_change original.gallery.id"  %}?_popup=1">{% trans "Edit gallery" %}</a></li>{% endif %}
 
 </ul>
 {% endblock %}

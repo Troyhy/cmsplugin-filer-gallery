@@ -11,8 +11,8 @@
 {% with  gallery_images=instance.images.all g_height=size.height g_width=size.width thumb_size=size.thumb_size%}
 {%if gallery_images %}
 
-    {% addtoblock "css"%}<link rel="stylesheet" href="{{ STATIC_URL }}galleria/themes/miniml/galleria.miniml.css">{% endaddtoblock%}
-    {% addtoblock "js" %}<script src="{{ STATIC_URL }}galleria/themes/miniml/galleria.miniml.min.js"></script>{% endaddtoblock %}
+    {% addtoblock "css"%}<link rel="stylesheet" href="{{ STATIC_URL }}galleria/themes/{{ instance.theme }}/galleria.{{ instance.theme }}.css">{% endaddtoblock%}
+    {% addtoblock "js" %}<script src="{{ STATIC_URL }}galleria/themes/{{ instance.theme }}/galleria.{{ instance.theme }}.min.js"></script>{% endaddtoblock %}
     
     {% addtoblock "js" %}
     <script type="text/javascript">
@@ -34,8 +34,9 @@
         {% for image_field in gallery_images %}
                 {% thumbnail image_field.image thumb_size crop=config.crop upscale=config.upscale subject_location=image_field.image.subject_location as image %}
                 <a style="display:none" data-ajax="false" href="{{ image.url }}">
-                    <img src="{% thumbnail image_field.image 64x64 subject_location=image_field.image.subject_location%}" 
-                        data-big="{{ image_field.image.url }}" 
+                {% thumbnail image_field.image 64x64 subject_location=image_field.image.subject_location as small_img %}
+                    <img src="{{ small_img.url }}"
+                        data-big="{{ image_field.image.url }}"
                         data-description="{{ image_field.image.description }}" 
                         data-title="{{ image_field.image.label }}"
                         title="{{ image_field.image.label }}"

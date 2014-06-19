@@ -7,13 +7,21 @@ from positions.fields import PositionField
 
 from datetime import datetime
 from filer.fields.image import FilerImageField
-ANIMATION_CHOICES = ('fade','flash','pulse','slide', 'fadeslide')
+ANIMATION_CHOICES = ('fade', 'flash', 'pulse', 'slide', 'fadeslide')
 ANIMATION_CHOICES = tuple(enumerate(ANIMATION_CHOICES))
 
 QUALITY_CHOICES = ('low', 'normal', 'high')
 QUALITY_CHOICES = tuple(enumerate(QUALITY_CHOICES))
 
 QUALITY_SIZE = ['320x200', '640x480', '800x600']
+
+#INSTALLED_THEMES = ['classic', 'miniml']
+#INSTALLED_THEMES = tuple(enumerate(INSTALLED_THEMES))
+INSTALLED_THEMES = [
+    ('classic', 'classic'),
+    ('miniml', 'miniml')
+]
+
 
 class FilerGallery(CMSPlugin):
 
@@ -50,6 +58,11 @@ class FilerGallery(CMSPlugin):
     imagecrop = models.BooleanField(
         _("ImageCrop"), default=False,
         help_text=_('If selected image will be cropped'))
+
+    theme = models.CharField(choices=INSTALLED_THEMES,
+                             help_text=_('Theme for current gallery'),
+                             max_length=10,
+                             default='classic')
     
     
     
